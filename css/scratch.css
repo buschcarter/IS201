@@ -1,0 +1,93 @@
+p{
+    font-weight: bold;
+}
+
+#top{
+    text-decoration: underline;
+}
+
+
+.aligned-list {
+    width: 560px; /* Same width as YouTube video */
+    margin: 0 auto; /* Center horizontally */
+    text-align: left;
+}
+
+
+.emphasizedText{
+    font-style: italic;
+    font-weight: bold;
+    font-size: large;
+}
+
+
+.centered-list{
+    padding-left: 0;
+    list-style-position: outside;
+    margin: 0 auto;
+    display: table;
+    text-align: left
+}
+
+body{
+    background-color: cornsilk !important;
+    font-family: calibri;
+    text-align: center;
+    border: 5px solid black;
+    margin: 25px;
+    padding: 10px
+}
+
+
+.top-left-link {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: white;
+    padding: 6px 12px;
+    border: 2px solid black;
+    border-radius: 6px;
+    color: black;
+    font-size: 1rem;
+}
+
+
+.top-left-link2 {
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: white;
+    padding: 6px 12px;
+    border: 2px solid black;
+    border-radius: 6px;
+    color: black;
+    font-size: 1rem;
+}
+
+
+.back-to-top {
+    display: block;
+    text-align: center;
+    margin: 40px auto;
+    padding: 10px 20px;
+    background-color: #222;
+    color: white;
+    text-decoration: none;
+    width: fit-content;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.back-to-top:hover {
+    background-color: #444;
+}
+
+
+
+
+

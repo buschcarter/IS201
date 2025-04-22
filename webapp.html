@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="number"], select {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      width: 120px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    #restartBtn {
+      display: none;
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #restartBtn:hover {
+      background-color: #45a049;
+    }
+
+    #highScore {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Guess the Number</h1>
+
+  <!-- Difficulty selector -->
+  <label for="difficulty">Select Difficulty:</label>
+  <select id="difficulty" onchange="startNewGame()">
+    <option value="50">Easy (1–50)</option>
+    <option value="100" selected>Medium (1–100)</option>
+    <option value="200">Hard (1–200)</option>
+  </select>
+
+  <p id="rangeDisplay">Guess a number between 1 and 100</p>
+
+  <input type="number" id="guessInput" min="1" />
+  <button onclick="makeGuess()">Submit Guess</button>
+
+  <p id="message"></p>
+  <p id="guessCount"></p>
+  <p id="highScore"></p>
+
+  <button id="restartBtn" onclick="startNewGame()">Play Again</button>
+
+  <script>
+    let secretNumber;
+    let guessCounter;
+    let maxRange = 100;
+    let highScore = localStorage.getItem("highScore") ? parseInt(localStorage.getItem("highScore")) : null;
+
+    function displayHighScore() {
+      const highScoreDisplay = document.getElementById("highScore");
+      if (highScore !== null) {
+        highScoreDisplay.textContent = `🏆 Best Score: ${highScore} guess${highScore === 1 ? '' : 'es'}`;
+      } else {
+        highScoreDisplay.textContent = `No high score yet — be the first!`;
+      }
+    }
+
+    function updateRangeDisplay() {
+      document.getElementById("rangeDisplay").textContent = `Guess a number between 1 and ${maxRange}`;
+      document.getElementById("guessInput").max = maxRange;
+    }
+
+    function startNewGame() {
+      maxRange = parseInt(document.getElementById("difficulty").value);
+      secretNumber = Math.floor(Math.random() * maxRange) + 1;
+      guessCounter = 0;
+      document.getElementById("message").textContent = "";
+      document.getElementById("guessCount").textContent = "";
+      document.getElementById("restartBtn").style.display = "none";
+      document.getElementById("guessInput").value = "";
+      document.getElementById("guessInput").disabled = false;
+      updateRangeDisplay();
+      displayHighScore();
+    }
+
+    function makeGuess() {
+      const guess = parseInt(document.getElementById("guessInput").value);
+      if (isNaN(guess) || guess < 1 || guess > maxRange) {
+        document.getElementById("message").textContent = `Please enter a number between 1 and ${maxRange}.`;
+        return;
+      }
+
+      guessCounter++;
+
+      if (guess === secretNumber) {
+        document.getElementById("message").textContent = `🎉 Congratulations! You guessed it! The number was ${secretNumber}.`;
+        document.getElementById("guessCount").textContent = `Total guesses: ${guessCounter}`;
+        document.getElementById("restartBtn").style.display = "inline-block";
+        document.getElementById("guessInput").disabled = true;
+
+        if (highScore === null || guessCounter < highScore) {
+          highScore = guessCounter;
+          localStorage.setItem("highScore", highScore);
+          displayHighScore();
+        }
+
+      } else if (guess < secretNumber) {
+        document.getElementById("message").textContent = "Too low! Try a higher number.";
+      } else {
+        document.getElementById("message").textContent = "Too high! Try a lower number.";
+      }
+    }
+
+    startNewGame();
+  </script>
+
+</body>
+</html>
